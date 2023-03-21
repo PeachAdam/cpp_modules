@@ -1,18 +1,17 @@
 .PHONY: 		all clean fclean re
 
-NAME 		= 	btc
+NAME 		= 	RPN
 
-SRCS		=	main.cpp dataBase.cpp inputBase.cpp
+SRCS		=	main.cpp
 OBJS		=	$(SRCS:.cpp=.o)
 
 CC 			=	clang++
-CFLAGS		= 	#-Wall -Wextra -Werror -std=c++98
-OCFLAGS		=	#-Wall -Wextra -Werror
+CFLAGS		=   -Wall -Wextra -Werror -std=c++98
 
 all:	 		$(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OCFLAGS) $(OBJS) -o $@
+	$(CC) $(CFLAGS) $(OBJS) -o $@
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@

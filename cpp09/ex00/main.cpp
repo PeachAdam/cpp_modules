@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inputBase.hpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaysu <yaysu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 20:10:34 by yaysu             #+#    #+#             */
-/*   Updated: 2023/03/14 22:33:33 by yaysu            ###   ########.fr       */
+/*   Created: 2023/03/14 19:21:22 by yaysu             #+#    #+#             */
+/*   Updated: 2023/03/20 22:17:36 by yaysu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <sstream>
-#include <vector>
+#include "dataBase.hpp"
 
-class inputBase
+int main(int argc, char **argv)
 {
-private:
-    std::vector<std::string> date;
-    std::vector<float>      value;
-public:
-    inputBase(std::string const &);
-    ~inputBase();
-
-    void write();
-};
+    dataBase    data;
+    data.doo(argc, argv);
+}
