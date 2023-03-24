@@ -190,6 +190,13 @@ void    BitcoinExchange::checkDate(char *str, char *val_str)
 void BitcoinExchange::write(char *str, double val)
 {
     int int_date = dateToInt(str);
+
+    if (int_date < 20090102 || int_date > 20220329)
+    {
+        std::cerr << "Error: bad date => " << str << std::endl;
+        return ;
+    }
+
     std::map<int, double>::iterator it = dataMap.upper_bound(int_date);
 
     std::cout << str << " => " << val << " = " << it->second * val << std::endl;
