@@ -6,7 +6,7 @@
 /*   By: yaysu <yaysu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 11:00:18 by yaysu             #+#    #+#             */
-/*   Updated: 2023/03/21 22:14:21 by yaysu            ###   ########.fr       */
+/*   Updated: 2023/03/24 12:30:44 by yaysu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,7 @@
 #include <list>
 #include <algorithm>
 #include <ctime>
-
-template<typename Container>
-void merge_insert_sort(Container& c)
-{
-    typename Container::iterator i, j;
-    for(i = c.begin(); i != c.end(); ++i)
-    {
-        for(j = i; j != c.begin() && *std::prev(j); --j)
-            iter_swap(j, std::prev(j));
-    }
-}
+#include "PmergeMe.cpp"
 
 int main(int argc, char* argv[])
 {
@@ -43,7 +33,7 @@ int main(int argc, char* argv[])
         int n;
         try
         {
-            n = std::stoi(argv[i]);
+            n = atoi(argv[i]);
         }
         catch(const std::exception& e)
         {

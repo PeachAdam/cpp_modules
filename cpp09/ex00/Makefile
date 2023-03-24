@@ -2,7 +2,7 @@
 
 NAME 		= 	btc
 
-SRCS		=	main.cpp dataBase.cpp
+SRCS		=	main.cpp BitcoinExchange.cpp
 OBJS		=	$(SRCS:.cpp=.o)
 
 CC 			=	clang++

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dataBase.hpp                                       :+:      :+:    :+:   */
+/*   BitcoinExchange.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaysu <yaysu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:10:34 by yaysu             #+#    #+#             */
-/*   Updated: 2023/03/18 15:32:42 by yaysu            ###   ########.fr       */
+/*   Updated: 2023/03/24 12:24:42 by yaysu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@
 #include <bits/stdc++.h>
 #include <cstdlib>
 
-class dataBase
+class BitcoinExchange
 {
 private:
     std::map<int, double>    dataMap;
 public:
-    dataBase();
-    dataBase(dataBase const &copy);
-    dataBase &operator=(dataBase const &copy);
-    ~dataBase();
+    BitcoinExchange();
+    BitcoinExchange(BitcoinExchange const &copy);
+    BitcoinExchange &operator=(BitcoinExchange const &copy);
+    ~BitcoinExchange();
 
     void    write(char *str, double val);
     void    findValues();

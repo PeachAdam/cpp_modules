@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dataBase.cpp                                       :+:      :+:    :+:   */
+/*   BitcoinExchange.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaysu <yaysu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:11:13 by yaysu             #+#    #+#             */
-/*   Updated: 2023/03/18 15:32:55 by yaysu            ###   ########.fr       */
+/*   Updated: 2023/03/24 12:26:22 by yaysu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dataBase.hpp"
+#include "BitcoinExchange.hpp"
 
-dataBase::dataBase()
+BitcoinExchange::BitcoinExchange()
 {
     std::ifstream           dataFile;
     std::pair<int, double>  temp;
@@ -47,45 +47,49 @@ dataBase::dataBase()
     dataFile.close();
 }
 
-dataBase &dataBase::operator=(dataBase const &copy)
+BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &copy)
 {
     dataMap = copy.dataMap;
     return (*this);
 }
 
 
-dataBase::dataBase(dataBase const &copy)
+BitcoinExchange::BitcoinExchange(BitcoinExchange const &copy)
 {
     *this = copy;
 }
 
-dataBase::~dataBase()
+BitcoinExchange::~BitcoinExchange()
 {
 }
 
 
-int     dataBase::dateToInt(std::string string)
+int     BitcoinExchange::dateToInt(std::string string)
 {
+    int         year = 0;
+    int         month = 0;
+    int         day = 0;
     int         ret = 0;
     const char *str = string.c_str();
 
     //yıl
-    ret += (str[0] - 48) * std::pow(10, 7);
-    ret += (str[1] - 48) * std::pow(10, 6);
-    ret += (str[2] - 48) * std::pow(10, 5);
-    ret += (str[3] - 48) * std::pow(10, 4);
+    year += (str[0] - 48) * std::pow(10, 3);
+    year += (str[1] - 48) * std::pow(10, 2);
+    year += (str[2] - 48) * std::pow(10, 1);
+    year += (str[3] - 48);
     //ay
-    ret += (str[5] - 48) * std::pow(10, 3);
-    ret += (str[6] - 48) * std::pow(10, 2);
+    month += (str[5] - 48) * std::pow(10, 1);
+    month += (str[6] - 48);
     //gün
-    ret += (str[8] - 48) * std::pow(10, 1);
-    ret += (str[9] - 48);
+    day += (str[8] - 48) * std::pow(10, 1);
+    day += (str[9] - 48);
+
+    ret = ((year * std::pow(10,4)) + (month * std::pow(10,2)) + day);
 
     return (ret);
 }
 
-
-void    dataBase::doo(int argc, char **argv)
+void    BitcoinExchange::doo(int argc, char **argv)
 {
     std::ifstream inputFile;
     
@@ -116,7 +120,7 @@ void    dataBase::doo(int argc, char **argv)
     inputFile.close();
 }
 
-void    dataBase::checkDate(char *str, char *val_str)
+void    BitcoinExchange::checkDate(char *str, char *val_str)
 {
     for (int i = 0; str[i]; i++)
     {
@@ -126,21 +130,41 @@ void    dataBase::checkDate(char *str, char *val_str)
             return ;
         }
     }
-    int day = 0;
-    int month = 0;
-    double val = 0;
-    const char *temp = val_str;
+    int day             = 0;
+    int month           = 0;
+    int year            = 0;
+    double val          = 0;
+    const char *temp    = val_str;
 
-    month += str[5] - 48;
-    month += str[6] - 48;
-    day += str[8] - 48;
-    day += str[9] - 48;
+    year    += ((str[0] - 48) * 1000);
+    year    += ((str[1] - 48) * 100);
+    year    += ((str[2] - 48) * 10);
+    year    += ((str[3] - 48));
+    month   += ((str[5] - 48) * 10);
+    month   += str[6] - 48;
+    day     += ((str[8] - 48) * 10);
+    day     += str[9] - 48;
+
     if (day > 31 || month > 12)
     {
         std::cerr << "Error: bad date => " << str << std::endl;
         return ;
     }
     
+    if (month == 2)
+    {
+        if (day > 29)
+        {
+            std::cerr << "Error: bad date => " << str << std::endl;
+            return ;
+        }
+        if (day == 29 && (year % 4) != 0)
+        {
+            std::cerr << "Error: bad date => " << str << std::endl;
+            return ;
+        }
+    }
+
     if (!val_str)
     {
         std::cerr << "Error: bad input => " << str << std::endl;
@@ -163,16 +187,10 @@ void    dataBase::checkDate(char *str, char *val_str)
     write(str, val);
 }
 
-void dataBase::write(char *str, double val)
+void BitcoinExchange::write(char *str, double val)
 {
     int int_date = dateToInt(str);
-    std::map<int, double>::iterator it = dataMap.find(int_date);
-
-    while (it->first == 1612)
-    {
-        int_date--;
-        it = dataMap.find(int_date);
-    }
+    std::map<int, double>::iterator it = dataMap.upper_bound(int_date);
 
     std::cout << str << " => " << val << " = " << it->second * val << std::endl;
 }

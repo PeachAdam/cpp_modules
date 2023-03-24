@@ -6,14 +6,14 @@
 /*   By: yaysu <yaysu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:21:22 by yaysu             #+#    #+#             */
-/*   Updated: 2023/03/20 22:17:36 by yaysu            ###   ########.fr       */
+/*   Updated: 2023/03/24 12:34:10 by yaysu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dataBase.hpp"
+#include "BitcoinExchange.hpp"
 
 int main(int argc, char **argv)
 {
-    dataBase    data;
+    BitcoinExchange    data;
     data.doo(argc, argv);
 }
