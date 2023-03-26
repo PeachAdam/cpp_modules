@@ -16,7 +16,7 @@
 #include <sstream>
 #include <map>
 #include <string>
-#include <bits/stdc++.h>
+#include <cmath>
 #include <cstdlib>
 
 class BitcoinExchange

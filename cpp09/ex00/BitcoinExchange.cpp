@@ -104,13 +104,12 @@ void    BitcoinExchange::doo(int argc, char **argv)
     std::string         str;
     char                *str1;
     char                *val_str;
-
-    getline(inputFile, str);
-    str = "";
     
     while (inputFile.good())
     {
         getline(inputFile,str, '\n');
+        if (str == "date | value")
+            getline(inputFile,str, '\n');
         char temp[std::strlen(str.c_str()) + 1];
         std::strcpy(temp, str.c_str());
         str1 = strtok(temp, " | ");
@@ -122,6 +121,9 @@ void    BitcoinExchange::doo(int argc, char **argv)
 
 void    BitcoinExchange::checkDate(char *str, char *val_str)
 {
+    if (!str)
+        return;
+
     for (int i = 0; str[i]; i++)
     {
         if ((i == 4 && str[4] != '-') || (i == 7 && str[7] != '-'))
@@ -184,6 +186,13 @@ void    BitcoinExchange::checkDate(char *str, char *val_str)
         std::cerr << "Error: not a positive number."<< std::endl;
         return ;
     }
+
+    if (val > 1000)
+    {
+        std::cerr << "Error: value greather than 1000."<< std::endl;
+        return ;
+    }
+
     write(str, val);
 }
 
@@ -198,6 +207,9 @@ void BitcoinExchange::write(char *str, double val)
     }
 
     std::map<int, double>::iterator it = dataMap.upper_bound(int_date);
+
+    if (it != dataMap.begin())
+        it--;
 
     std::cout << str << " => " << val << " = " << it->second * val << std::endl;
 }

@@ -10,11 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <stdlib.h>
-#include <stack>
+#include "RPN.hpp"
+/*
+int countDigit(long long n)
+{
+    if (n/10==0)
+        return 1;
+    return (1 + countDigit(n/10));
+}
+
+while (val != 0)
+{
+    operands.push(val / std::pow(10, countDigit(val) - 1));
+    val = val % (int)std::pow(10, countDigit(val) - 1);
+}
+*/
 
 std::string evaluate_rpn(std::string str)
 {
@@ -25,9 +35,16 @@ std::string evaluate_rpn(std::string str)
     while (iss >> token) {
         if (isdigit(token[0]))
         {
-            operands.push(atoi(token.c_str()));
-            if (atoi(token.c_str()) >= 10)
-                return "Error";
+            int val;
+
+            val = atoi(token.c_str());
+            if (val >= 10)
+            {
+                operands.push(val / 10);
+                operands.push(val % 10);
+            }
+            else 
+                operands.push(atoi(token.c_str()));
         }
         else if (token == "+" || token == "-" || token == "*" || token == "/")
         {    
