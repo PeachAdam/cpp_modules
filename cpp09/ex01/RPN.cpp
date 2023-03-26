@@ -11,20 +11,6 @@
 /* ************************************************************************** */
 
 #include "RPN.hpp"
-/*
-int countDigit(long long n)
-{
-    if (n/10==0)
-        return 1;
-    return (1 + countDigit(n/10));
-}
-
-while (val != 0)
-{
-    operands.push(val / std::pow(10, countDigit(val) - 1));
-    val = val % (int)std::pow(10, countDigit(val) - 1);
-}
-*/
 
 std::string evaluate_rpn(std::string str)
 {
@@ -38,16 +24,18 @@ std::string evaluate_rpn(std::string str)
             int val;
 
             val = atoi(token.c_str());
-            if (val >= 10)
-            {
-                operands.push(val / 10);
-                operands.push(val % 10);
+            int i = 0;
+            int *a = new int[token.size()];
+
+            while (val) {
+                a[i++] = val % 10;
+                val /= 10;
             }
-            else 
-                operands.push(atoi(token.c_str()));
+            for (int i = (int)token.size() - 1; i >= 0; i--)
+                operands.push(a[i]);
         }
         else if (token == "+" || token == "-" || token == "*" || token == "/")
-        {    
+        {  
             if (operands.size() < 2)
                 return "Error";
             
