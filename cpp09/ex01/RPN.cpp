@@ -6,7 +6,7 @@
 /*   By: yaysu <yaysu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 12:31:04 by yaysu             #+#    #+#             */
-/*   Updated: 2023/03/24 12:31:21 by yaysu            ###   ########.fr       */
+/*   Updated: 2023/03/28 18:09:39 by yaysu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ std::string evaluate_rpn(std::string str)
             }
             for (int i = (int)token.size() - 1; i >= 0; i--)
                 operands.push(a[i]);
+            delete[] a;
         }
         else if (token == "+" || token == "-" || token == "*" || token == "/")
         {  
